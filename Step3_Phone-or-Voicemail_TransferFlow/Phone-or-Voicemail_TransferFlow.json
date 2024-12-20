@@ -1,0 +1,494 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "3ad859aa-316a-4945-a1ef-3a2744f22e9a",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": -524,
+      "y": -432.8
+    },
+    "ActionMetadata": {
+      "Set guided task delivery mode": {
+        "position": {
+          "x": 157.6,
+          "y": 77.6
+        },
+        "isFriendlyName": true,
+        "dynamicParams": []
+      },
+      "Set remaining required attributes for VMX3": {
+        "position": {
+          "x": 675.2,
+          "y": -22.4
+        },
+        "isFriendlyName": true,
+        "parameters": {
+          "Attributes": {
+            "vmx3_from": {
+              "useDynamic": true
+            },
+            "vmx3_queue_arn": {
+              "useDynamic": true
+            }
+          }
+        },
+        "dynamicParams": [
+          "vmx3_from",
+          "vmx3_queue_arn"
+        ]
+      },
+      "Select Delivery Model": {
+        "position": {
+          "x": -76.8,
+          "y": 74.4
+        },
+        "isFriendlyName": true,
+        "conditionMetadata": [
+          {
+            "id": "a40ce5bf-7436-4630-bca3-c2d65fb156cf",
+            "value": "1"
+          }
+        ]
+      },
+      "Set all of the test attributes": {
+        "position": {
+          "x": 193.6,
+          "y": -143.2
+        },
+        "isFriendlyName": true,
+        "dynamicParams": []
+      },
+      "Main test flow greeting": {
+        "position": {
+          "x": 458.4,
+          "y": -144.8
+        },
+        "isFriendlyName": true
+      },
+      "Turn on flow logging": {
+        "position": {
+          "x": -51.2,
+          "y": -134.4
+        },
+        "isFriendlyName": true
+      },
+      "51036988-e66a-4901-b707-bc7f591a0ac6": {
+        "position": {
+          "x": 768.8,
+          "y": -363.2
+        }
+      },
+      "68f631c5-d98f-4e7e-8611-b67aab8f7c15": {
+        "position": {
+          "x": 474.4,
+          "y": -356.8
+        }
+      },
+      "Nothing selected": {
+        "position": {
+          "x": -82.4,
+          "y": 360.8
+        },
+        "isFriendlyName": true
+      },
+      "7b48deb4-1e2c-4490-9b6e-6e06fe1e4e2a": {
+        "position": {
+          "x": 122.4,
+          "y": -474.4
+        },
+        "parameters": {
+          "ThirdPartyPhoneNumber": {
+            "countryCode": "CA"
+          }
+        },
+        "CountryCode": "ca"
+      },
+      "Set standard queue": {
+        "position": {
+          "x": 448.8,
+          "y": 78.4
+        },
+        "isFriendlyName": true,
+        "parameters": {
+          "QueueId": {
+            "useDynamic": true
+          }
+        },
+        "useDynamic": true
+      },
+      "Invoke the core VMX3 module": {
+        "position": {
+          "x": 906.4,
+          "y": -17.6
+        },
+        "isFriendlyName": true,
+        "parameters": {
+          "FlowModuleId": {
+            "useDynamic": true
+          }
+        },
+        "useDynamic": true
+      },
+      "End Test": {
+        "position": {
+          "x": -310.4,
+          "y": 589.6
+        },
+        "isFriendlyName": true
+      },
+      "Error message": {
+        "position": {
+          "x": 452,
+          "y": 313.6
+        },
+        "isFriendlyName": true
+      },
+      "cbb0ef03-35c6-4260-a597-fdbc1dbef643": {
+        "position": {
+          "x": -418.4,
+          "y": -45.6
+        }
+      },
+      "089cd276-2fbd-4fb5-8a8f-aa85e2c02c7c": {
+        "position": {
+          "x": -121.6,
+          "y": -424
+        }
+      },
+      "3ad859aa-316a-4945-a1ef-3a2744f22e9a": {
+        "position": {
+          "x": -388.8,
+          "y": -415.2
+        },
+        "parameters": {
+          "HoursOfOperationId": {
+            "displayName": "Hours Non-Staffed"
+          }
+        },
+        "Hours": {
+          "id": "arn:aws:connect:ca-central-1:619071323626:instance/10a10b52-d3e8-46f5-adc4-dd2e0c674a1b/operating-hours/e1d48b02-cff6-42b2-9939-801f16dc6464",
+          "text": "Hours Non-Staffed"
+        }
+      }
+    },
+    "Annotations": [],
+    "name": "Phone-or-Voicemail_TransferFlow",
+    "description": "Basic test flow to validate the Voicemail Express Deployment",
+    "type": "contactFlow",
+    "status": "published",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {
+        "Attributes": {
+          "vmx3_mode": "guided_task"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "Set guided task delivery mode",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "Set standard queue",
+        "Errors": [
+          {
+            "NextAction": "Set standard queue",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "vmx3_from": "$.CustomerEndpoint.Address",
+          "vmx3_lang": "en-US",
+          "vmx3_queue_arn": "$.Queue.ARN"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "Set remaining required attributes for VMX3",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "Invoke the core VMX3 module",
+        "Errors": [
+          {
+            "NextAction": "Invoke the core VMX3 module",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5",
+        "Text": "Press 1 to start recording."
+      },
+      "Identifier": "Select Delivery Model",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "Nothing selected",
+        "Conditions": [
+          {
+            "NextAction": "Set guided task delivery mode",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "vmx3_core_module": "4827fb43-3250-4d93-a917-7415dd4dd475",
+          "vmx3_task_flow": "273f772f-c3c4-43db-a73a-f5b006c743cd",
+          "vmx3_test_agent": "contact@centredappel360.com",
+          "vmx3_test_queue": "arn:aws:connect:ca-central-1:619071323626:instance/10a10b52-d3e8-46f5-adc4-dd2e0c674a1b/queue/948b3d21-29ca-4388-b305-492021bdddd6",
+          "vmx3_guided_task_flow": "257b193e-eae2-4cdd-9aad-b278848343c0"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "Set all of the test attributes",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "Main test flow greeting",
+        "Errors": [
+          {
+            "NextAction": "Main test flow greeting",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Connecting you to voicemail. "
+      },
+      "Identifier": "Main test flow greeting",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "Select Delivery Model",
+        "Errors": [
+          {
+            "NextAction": "Select Delivery Model",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Identifier": "Turn on flow logging",
+      "Type": "UpdateFlowLoggingBehavior",
+      "Transitions": {
+        "NextAction": "Set all of the test attributes"
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "51036988-e66a-4901-b707-bc7f591a0ac6",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "Text": "An error occured while trying to transfer you. Disconnecting."
+      },
+      "Identifier": "68f631c5-d98f-4e7e-8611-b67aab8f7c15",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "51036988-e66a-4901-b707-bc7f591a0ac6",
+        "Errors": [
+          {
+            "NextAction": "51036988-e66a-4901-b707-bc7f591a0ac6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "No option selected. Ending test flow."
+      },
+      "Identifier": "Nothing selected",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "End Test",
+        "Errors": [
+          {
+            "NextAction": "End Test",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "ThirdPartyPhoneNumber": "+14388365224",
+        "ThirdPartyConnectionTimeLimitSeconds": "30",
+        "ContinueFlowExecution": "True"
+      },
+      "Identifier": "7b48deb4-1e2c-4490-9b6e-6e06fe1e4e2a",
+      "Type": "TransferParticipantToThirdParty",
+      "Transitions": {
+        "NextAction": "51036988-e66a-4901-b707-bc7f591a0ac6",
+        "Errors": [
+          {
+            "NextAction": "68f631c5-d98f-4e7e-8611-b67aab8f7c15",
+            "ErrorType": "CallFailed"
+          },
+          {
+            "NextAction": "68f631c5-d98f-4e7e-8611-b67aab8f7c15",
+            "ErrorType": "ConnectionTimeLimitExceeded"
+          },
+          {
+            "NextAction": "68f631c5-d98f-4e7e-8611-b67aab8f7c15",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "$.Attributes.vmx3_test_queue"
+      },
+      "Identifier": "Set standard queue",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "Set remaining required attributes for VMX3",
+        "Errors": [
+          {
+            "NextAction": "Error message",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "FlowModuleId": "$.Attributes.vmx3_core_module"
+      },
+      "Identifier": "Invoke the core VMX3 module",
+      "Type": "InvokeFlowModule",
+      "Transitions": {
+        "NextAction": "Error message",
+        "Errors": [
+          {
+            "NextAction": "Error message",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "End Test",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "Text": "We have encountered a system error."
+      },
+      "Identifier": "Error message",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "End Test",
+        "Errors": [
+          {
+            "NextAction": "End Test",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Our office is currently closed. You are being transfered to voicemail."
+      },
+      "Identifier": "cbb0ef03-35c6-4260-a597-fdbc1dbef643",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "Turn on flow logging",
+        "Errors": [
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Thank you for calling, transfering you to an agent."
+      },
+      "Identifier": "089cd276-2fbd-4fb5-8a8f-aa85e2c02c7c",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "7b48deb4-1e2c-4490-9b6e-6e06fe1e4e2a",
+        "Errors": [
+          {
+            "NextAction": "End Test",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "HoursOfOperationId": "arn:aws:connect:ca-central-1:619071323626:instance/10a10b52-d3e8-46f5-adc4-dd2e0c674a1b/operating-hours/e1d48b02-cff6-42b2-9939-801f16dc6464"
+      },
+      "Identifier": "3ad859aa-316a-4945-a1ef-3a2744f22e9a",
+      "Type": "CheckHoursOfOperation",
+      "Transitions": {
+        "NextAction": "089cd276-2fbd-4fb5-8a8f-aa85e2c02c7c",
+        "Conditions": [
+          {
+            "NextAction": "089cd276-2fbd-4fb5-8a8f-aa85e2c02c7c",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "True"
+              ]
+            }
+          },
+          {
+            "NextAction": "cbb0ef03-35c6-4260-a597-fdbc1dbef643",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "False"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "089cd276-2fbd-4fb5-8a8f-aa85e2c02c7c",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,522 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "Turn on flow logging",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": -520,
+      "y": -42.4
+    },
+    "ActionMetadata": {
+      "Initialization greeting": {
+        "position": {
+          "x": 880,
+          "y": 271.2
+        },
+        "isFriendlyName": true
+      },
+      "Set remaining required attributes for VMX3": {
+        "position": {
+          "x": 1143.2,
+          "y": 273.6
+        },
+        "isFriendlyName": true,
+        "parameters": {
+          "Attributes": {
+            "vmx3_from": {
+              "useDynamic": true
+            },
+            "vmx3_queue_arn": {
+              "useDynamic": true
+            }
+          }
+        },
+        "dynamicParams": [
+          "vmx3_from",
+          "vmx3_queue_arn"
+        ]
+      },
+      "Invoke the core VMX3 module": {
+        "position": {
+          "x": 1403.2,
+          "y": 272.8
+        },
+        "isFriendlyName": true,
+        "parameters": {
+          "FlowModuleId": {
+            "useDynamic": true
+          }
+        },
+        "useDynamic": true
+      },
+      "Set agent queue": {
+        "position": {
+          "x": 343.2,
+          "y": 144.8
+        },
+        "isFriendlyName": true,
+        "parameters": {
+          "AgentId": {
+            "useDynamic": true
+          }
+        },
+        "useDynamic": true
+      },
+      "Set standard queue": {
+        "position": {
+          "x": 636,
+          "y": 270.4
+        },
+        "isFriendlyName": true,
+        "parameters": {
+          "QueueId": {
+            "useDynamic": true
+          }
+        },
+        "useDynamic": true
+      },
+      "Error message": {
+        "position": {
+          "x": 352.8,
+          "y": 556.8
+        },
+        "isFriendlyName": true
+      },
+      "End Test": {
+        "position": {
+          "x": 357.6,
+          "y": 760.8
+        },
+        "isFriendlyName": true
+      },
+      "Set task delivery mode": {
+        "position": {
+          "x": -209.6,
+          "y": 220
+        },
+        "isFriendlyName": true,
+        "dynamicParams": []
+      },
+      "Nothing selected": {
+        "position": {
+          "x": -252,
+          "y": 936.8
+        },
+        "isFriendlyName": true
+      },
+      "Set email delivery mode": {
+        "position": {
+          "x": -211.2,
+          "y": 703.2
+        },
+        "isFriendlyName": true,
+        "dynamicParams": []
+      },
+      "Set the destination type": {
+        "position": {
+          "x": 76.8,
+          "y": 351.2
+        },
+        "isFriendlyName": true,
+        "conditionMetadata": [
+          {
+            "id": "6ffa64c2-f8a8-4bf1-a1b3-304edaa4e278",
+            "value": "1"
+          },
+          {
+            "id": "20bc397f-f712-4278-9c9d-5bc277291520",
+            "value": "2"
+          }
+        ]
+      },
+      "Select Delivery Model": {
+        "position": {
+          "x": -539.2,
+          "y": 300
+        },
+        "isFriendlyName": true,
+        "conditionMetadata": [
+          {
+            "id": "b548df81-def3-4851-a14e-22bfb1ba7d49",
+            "value": "1"
+          },
+          {
+            "id": "ee67b56a-0eee-42e6-8a43-3835a06bc575",
+            "value": "2"
+          },
+          {
+            "id": "6df11c1e-9d97-4fd3-9598-f9137b0b605d",
+            "value": "3"
+          }
+        ]
+      },
+      "Set guided task delivery mode": {
+        "position": {
+          "x": -198.4,
+          "y": 434.4
+        },
+        "isFriendlyName": true,
+        "dynamicParams": []
+      },
+      "Turn on flow logging": {
+        "position": {
+          "x": -398.4,
+          "y": -39.2
+        },
+        "isFriendlyName": true
+      },
+      "Main test flow greeting": {
+        "position": {
+          "x": 81.6,
+          "y": -40.8
+        },
+        "isFriendlyName": true
+      },
+      "Set all of the test attributes": {
+        "position": {
+          "x": -160.8,
+          "y": -41.6
+        },
+        "isFriendlyName": true,
+        "dynamicParams": []
+      }
+    },
+    "Annotations": [],
+    "name": "VMX3_AWS_Test_Flow_centredappel360-phoneline",
+    "description": "Basic test flow to validate the Voicemail Express Deployment",
+    "type": "contactFlow",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {
+        "Text": "Connecting to the voicemail flow."
+      },
+      "Identifier": "Initialization greeting",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "Set remaining required attributes for VMX3",
+        "Errors": [
+          {
+            "NextAction": "Set remaining required attributes for VMX3",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "vmx3_from": "$.CustomerEndpoint.Address",
+          "vmx3_lang": "en-US",
+          "vmx3_queue_arn": "$.Queue.ARN"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "Set remaining required attributes for VMX3",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "Invoke the core VMX3 module",
+        "Errors": [
+          {
+            "NextAction": "Invoke the core VMX3 module",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "FlowModuleId": "$.Attributes.vmx3_core_module"
+      },
+      "Identifier": "Invoke the core VMX3 module",
+      "Type": "InvokeFlowModule",
+      "Transitions": {
+        "NextAction": "Error message",
+        "Errors": [
+          {
+            "NextAction": "Error message",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "AgentId": "$.Attributes.vmx3_test_agent"
+      },
+      "Identifier": "Set agent queue",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "Initialization greeting",
+        "Errors": [
+          {
+            "NextAction": "Error message",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "$.Attributes.vmx3_test_queue"
+      },
+      "Identifier": "Set standard queue",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "Initialization greeting",
+        "Errors": [
+          {
+            "NextAction": "Error message",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We have encountered a system error. Please check flow logs to determine the issue."
+      },
+      "Identifier": "Error message",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "End Test",
+        "Errors": [
+          {
+            "NextAction": "End Test",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "End Test",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "vmx3_mode": "task"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "Set task delivery mode",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "Set the destination type",
+        "Errors": [
+          {
+            "NextAction": "Set the destination type",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "No option selected. Ending test flow."
+      },
+      "Identifier": "Nothing selected",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "End Test",
+        "Errors": [
+          {
+            "NextAction": "End Test",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "vmx3_mode": "email"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "Set email delivery mode",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "Set the destination type",
+        "Errors": [
+          {
+            "NextAction": "Set the destination type",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5",
+        "Text": "Press 1 to test delivery of voicemail to an agent's personal queue. Press 2 to test delivery to a standard queue."
+      },
+      "Identifier": "Set the destination type",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "Nothing selected",
+        "Conditions": [
+          {
+            "NextAction": "Set agent queue",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "Set standard queue",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5",
+        "Text": "Press 1 to test task delivery, press 2 to test guided task delivery, or press 3 to test email delivery."
+      },
+      "Identifier": "Select Delivery Model",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "Nothing selected",
+        "Conditions": [
+          {
+            "NextAction": "Set task delivery mode",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "Set guided task delivery mode",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "Set email delivery mode",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "Nothing selected",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "vmx3_mode": "guided_task"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "Set guided task delivery mode",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "Set the destination type",
+        "Errors": [
+          {
+            "NextAction": "Set the destination type",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "FlowLoggingBehavior": "Enabled"
+      },
+      "Identifier": "Turn on flow logging",
+      "Type": "UpdateFlowLoggingBehavior",
+      "Transitions": {
+        "NextAction": "Set all of the test attributes"
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "This is the voicemail express test flow. It allows you to quickly validate the deployment. "
+      },
+      "Identifier": "Main test flow greeting",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "Select Delivery Model",
+        "Errors": [
+          {
+            "NextAction": "Select Delivery Model",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "vmx3_core_module": "168769f5-8db9-4902-8d59-2c55a791032c",
+          "vmx3_task_flow": "87db8369-7646-49bc-a504-411238d899a1",
+          "vmx3_test_agent": "agent",
+          "vmx3_test_queue": "arn:aws:connect:ca-central-1:619071323626:instance/47530858-7e0a-4974-869d-4a75869c9c3d/queue/7e3c86c7-1c8f-40e6-b18f-ade3727c7f6a",
+          "vmx3_guided_task_flow": "e5dcf462-c1d6-4f83-94c0-37513b5df662"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "Set all of the test attributes",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "Main test flow greeting",
+        "Errors": [
+          {
+            "NextAction": "Main test flow greeting",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}
